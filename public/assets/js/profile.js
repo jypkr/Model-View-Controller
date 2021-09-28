@@ -31,6 +31,7 @@ axios.get('/api/users/posts', {
   }
 })
   .then(({ data: { username, posts } }) => {
+    console.log(posts)
     posts.forEach(({ id, title, body }) => {
       const postElem = document.createElement('li')
       postElem.className = 'd-flex justify-content-between align-items-start mb-2 listItem'

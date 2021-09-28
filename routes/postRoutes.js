@@ -4,8 +4,8 @@ const passport = require('passport')
 
 router.get('/posts', passport.authenticate('jwt'), (req, res) => {
   Post.findAll({ include: 'u' })
-  .then(posts => res.json(posts))
-  .catch(err => console.log(err))
+    .then(posts => res.json(posts))
+    .catch(err => console.log(err))
 })
 
 router.post('/posts', passport.authenticate('jwt'), (req, res) => Post.create({
@@ -14,7 +14,10 @@ router.post('/posts', passport.authenticate('jwt'), (req, res) => Post.create({
   uid: req.user.id
 })
   .then(post => Post.findOne({ where: { id: post.id }, include: 'u' }))
-  .then(post => res.json(post))
+  .then(post => {
+    console.log(post)
+    res.json(post)
+  })
   .catch(err => console.log(err)))
 
 router.delete('/posts/:id', (req, res) => Post.destroy({ where: { id: req.params.id } })
